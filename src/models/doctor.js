@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken") 
 
 const doctorSchema = new mongoose.Schema({
     name: {
@@ -75,6 +75,7 @@ doctorSchema.methods.toJSON = function(){
 
     delete user.password
     delete user.authTokens
+    delete user.patients
 
     return user
 }

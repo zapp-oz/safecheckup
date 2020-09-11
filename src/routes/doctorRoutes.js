@@ -1,6 +1,7 @@
 const express = require("express")
 const Doctor = require("../models/doctor")
 const authenticate = require("../middleware/authenticateDoctors")
+const patientAuthenticate = require("../middleware/authenticatePatients")
 
 const Route = express.Router({mergeParams: true})
 
@@ -51,6 +52,26 @@ Route.get("/logoutAll", authenticate, async (req, res) => {
         res.status(200).send()
     } catch(e){
         res.status(500).send()
+    }
+})
+
+Route.get("/:id", patientAuthenticate, async (req, res) => {
+    try{
+        const doctor = await Doctor.findById(req.params.id)
+
+        if(!doctor){
+            throw new Error("Doctor not found!")
+        }
+
+        doctorCopy = doctor.toObject()
+        delete doctorCopy.email
+        delete doctorCopy.patients
+        delete doctorCopy.authTokens
+        delete doctorCopy.password
+
+        res.status(200).send(doctorCopy)
+    } catch(e){
+        res.status(400).send()
     }
 })
 

@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 const express = require("express")
 const authenticate = require("../middleware/authenticatePatients")
 
-let diseaseData = require("../assets/diseases")
+let diseaseData = require("../assets/data/diseases")
+const Doctor = require("../models/doctor")
 
 const Route = express.Router({mergeParams: true})
 
@@ -31,8 +32,18 @@ Route.post("/symptoms", authenticate, async (req, res) => {
             }
         }
 
+        let doctors = Object.entries(doctorType)
+        doctors.sort(function(a, b){
+            return a[1]-b[1]
+        })
+        doctors.reverse()
+
+        doctors = Object.fromEntries(doctors)
+        doctors = Object.keys(doctors)
         
-        res.status(200).send()
+        const searchResults = await Doctor.find({speciality: doctors})      
+        
+        res.status(200).send(searchResults)
         
     } catch(e){
         res.status(500).send()
