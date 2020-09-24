@@ -7,7 +7,7 @@ const patientSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     email: {
         type: String,
@@ -44,10 +44,19 @@ const patientSchema = new mongoose.Schema({
     ]
 })
 
-patientSchema.virtual("doctors", {
-    ref: "Doctor",
-    localField: "_id",
-    foreignField: "patients"
+patientSchema.set('toJSON', {virtuals: true})
+patientSchema.set('toObject', {virtuals: true})
+
+patientSchema.virtual('doctors', {
+    ref: 'Doctor',
+    localField: '_id',
+    foreignField: 'patients.patient'
+})
+
+patientSchema.virtual('appointments', {
+    ref: 'Appointment',
+    localField: '_id',
+    foreignField: 'doctors.appointments.patient'
 })
 
 patientSchema.methods.toJSON = function(){

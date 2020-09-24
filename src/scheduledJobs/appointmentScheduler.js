@@ -1,10 +1,7 @@
-const mongoose = require("mongoose")
 const moment = require("moment")
 
 const Doctor = require("../models/doctor")
 const Appointment = require("../models/appointments")
-
-mongoose.connect("mongodb://127.0.0.1:27017/doctorApp", {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 
 const appointmentUpdate = async () => {
     const appointments = await Appointment.find({})
@@ -12,7 +9,6 @@ const appointmentUpdate = async () => {
     let todayG = moment().utcOffset("+05:30").startOf("date")
     
     if(appointments.length === 0){
-        console.log("hello1")
         for(let t = 0; t<2; t++){
             let doctorsSlots = []
             let start = null
@@ -25,13 +21,10 @@ const appointmentUpdate = async () => {
                 let appointments = []
                 for(let i = 0; i<10; i++){
                     appointments = [...appointments, {
-                        slot: {
-                            startTime: new Date(start.valueOf()),
-                            endTime: new Date(start.add(30, 'm').valueOf()),
-                            patient: null
-                        }
+                        startTime: new Date(start.valueOf()),
+                        endTime: new Date(start.add(30, 'm').valueOf()),
+                        patient: null                    
                     }]
-                    start.add(30, 'm')
                 }
 
                 doctorsSlots = [...doctorsSlots, {
@@ -48,25 +41,20 @@ const appointmentUpdate = async () => {
             await appointment.save()
         }
     } else {
-        console.log("hello2")
         for(let t of appointments){
             const date = moment(t.date)
             if(date.isBefore(todayG, 'date')){
                 await t.remove()
-
                 let doctorsSlots = []
                 let start = todayG.clone().add(24 + 9, 'h')
                 for(let i of doctors){
                     let appointments = []
                     for(let i = 0; i<10; i++){
-                        appointments = [...appointments, {
-                            slot: {
-                                startTime: new Date(start.valueOf()),
-                                endTime: new Date(start.add(30, 'm').valueOf()),
-                                patient: null
-                            }
+                        appointments = [...appointments, {                
+                            startTime: new Date(start.valueOf()),
+                            endTime: new Date(start.add(30, 'm').valueOf()),
+                            patient: null            
                         }]
-                        start.add(30, 'm')
                     }
 
                     doctorsSlots = [...doctorsSlots, {
@@ -81,16 +69,12 @@ const appointmentUpdate = async () => {
                 })
 
                 await appointment.save()
-                break;
+                break
             }
         }   
     }
 
-    return await Appointment.find({})
+    return "Success"
 }
 
-appointmentUpdate().then((res) => {
-    console.log(res)
-}).catch((e) => {
-    console.log(e)
-})
+module.exports = appointmentUpdate

@@ -1,2 +1,6 @@
 node_modules
-.env
+config/.eslintrc
+config/dev.env
+plan.txt
+.vscode
+assets

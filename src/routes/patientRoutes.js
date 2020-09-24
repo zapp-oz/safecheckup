@@ -91,4 +91,6 @@ Route.delete("/", authenticate, async (req, res) => {
     }
 })
 
+//getDoctors
+
 module.exports = Route
