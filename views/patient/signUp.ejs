@@ -1,0 +1,15 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container sp">
+    <h3 class="sp-text-heading">Sign Up</h3>
+    <form action="/<%=type%>/signUp" method="POST">
+        <input type="text" placeholder="username" name="patient[name]" class="sp-input-field" required autocomplete="off">
+        <input type="email" placeholder="email" name="patient[email]" class="sp-input-field" required autocomplete="off">
+        <input type="password" placeholder="password" name="patient[password]" class="sp-input-field" required autocomplete="off">
+        <input type="number" placeholder="age" name="patient[age]" class="sp-input-field" required autocomplete="off">
+        <button class="sp-text-normal sp-sub-btn">Sign Up</button>
+    </form>
+    <a href="/<%=type%>/login" class="sp-text-normal sp-login-link">Already registered! Login here.</a>
+</div>
+
+<%- include("../partials/footer.ejs") %>

@@ -9,6 +9,31 @@ const doctorAuthenticate = require('../middleware/authenticateDoctors')
 const Route = express.Router({mergeParams: true})
 
 //get appointments for doctor
+Route.get('/doctor', doctorAuthenticate, async (req, res) => {
+    try{
+        const doctor = await Doctor
+        .findById(req.doctor._id)
+        .populate([
+            {
+                path: 'appointments',
+                model: 'Appointment'
+            }
+        ])
+
+        let doctorCopy = doctor.toObject()
+        doctorCopy.appointments = doctorCopy.appointments.map((appointmentSchedule) => {
+            appointmentSchedule.doctors = appointmentSchedule.doctors.filter((doctor) => {
+                return doctor.doctor.equals(req.doctor._id)
+            })
+
+            return appointmentSchedule
+        })
+
+        res.status(200).send(doctorCopy.appointments)
+    } catch(e){
+        res.status(500).send()
+    }
+})
 
 
 //get appointments for patient
@@ -46,38 +71,14 @@ Route.get('/patient', patientAuthenticate, async (req, res) => {
             }
         }
 
-
-        // const patient = await Patient
-        // .findOne({_id: req.patient._id})
-        // .populate([
-        //     {
-        //         path: 'doctors',
-        //         model: 'Doctor',
-        //         select: '_id'                
-        //     }
-        // ])
-
-        // let patientCopy = patient.toObject()
-        
-        // patientCopy.doctors = patientCopy.doctors.map((doctor) => {
-        //     delete doctor.patients
-        //     return doctor
-        // })
-        
-        // delete patientCopy.password
-        // delete patientCopy.authTokens
-        // delete patientCopy.id
-
-
         res.status(200).send(list)
     } catch(e){
-        console.log(e)
         res.status(500).send()
     }
 })
 
 //create appointment
-Route.post('/book/:id', patientAuthenticate, async (req, res) => {
+Route.get('/book/:id', patientAuthenticate, async (req, res) => {
     try{
         const appointments = await Appointment.findOne({
             'doctors.appointments._id': req.params.id
@@ -94,6 +95,8 @@ Route.post('/book/:id', patientAuthenticate, async (req, res) => {
                 return appointment._id.equals(req.params.id)
             })
             if(!appointment){
+                return false
+            } else if(appointment.patient !== null){
                 return false
             } else {
                 appointmentFind = appointment
@@ -117,7 +120,7 @@ Route.post('/book/:id', patientAuthenticate, async (req, res) => {
 
         appointmentFind.patient = req.patient._id
         await appointments.save()
-
+        
         res.status(200).send()
     } catch(e){
         res.status(500).send()

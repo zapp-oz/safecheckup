@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<script src="/scripts/patient-profile.js"></script>
+<div class="container profile-container">
+    <h2 class="profile-heading">Info</h2>
+    <hr>
+    <div class="container mb-5">
+        <p class="profile-entries"><strong>name: </strong><%=patient.name%></p>
+        <p class="profile-entries"><strong>email: </strong><%=patient.email%></p>
+        <p class="profile-entries"><strong>age: </strong><%=patient.age%></p>
+    </div>
+    <h2 class="profile-heading">Appointments</h2>
+    <button class="profile-button" id="profile-get-appointments">Show appointments</button>
+    <div id="profile-appointments"></div>
+    <hr>
+    <h2 class="profile-heading">Doctors</h2>
+    <a href='/diseases/search'><button class="profile-button">Connect with a Doctor!</button></a>
+    <hr>
+</div>
+
+<script>
+    let patientData = '<%-JSON.stringify(patient)%>'
+</script>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,64 @@
+.search-container{
+    margin-top: 100px;
+}
+
+.search-heading{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 34px;
+    width: 20%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#search-input{
+    display: inline-block;
+    margin: 20px auto;
+    width: 60%;
+    text-align: center;
+    border: 2px solid #222831;
+    background-color: #eeeeee;
+    color: #393e46;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#search-button{
+    margin: 10px auto;
+    display: inline-block;
+    border: 2px solid #222831;
+    background-color: #00adb5;
+    color: #eeeeee;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#search-list{
+    border: 2px solid #222831;
+    min-height: 3.0vh;
+    max-width: 60%;
+    margin: 10px auto;
+}
+
+.search-doctor{
+    border: 2px solid #222831;
+    padding: 10px;
+    width: fit-content;
+}
+
+.search-connect-btn{
+    background-color: #00adb5;
+    color: #eeeeee;
+    font-family: 'Abel', cursive;
+    padding: 5px;
+}
+
+#search-box{
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#search-live-list{
+    width: 60%;
+    margin: 0 auto;
+}

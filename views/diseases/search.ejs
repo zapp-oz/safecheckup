@@ -1,0 +1,20 @@
+<%- include("../partials/header.ejs") %>
+
+<script src="/scripts/searchValues.js"></script>
+<div class="container search-container">
+    <h1 class="search-heading">SEARCH</h1>
+    <hr>
+    <div id="search-list"></div>
+    <div id="search-box">
+        <input id="search-input" type="text" placeholder="symptoms">
+        <button id="search-button">Go!</button>
+        <div id="search-live-list"></div>
+    </div>
+    <div class="search-doctors"></div>
+</div>
+
+<script>
+    let symptomsData = '<%- JSON.stringify(symptoms) %>'
+</script>
+
+<%- include("../partials/footer.ejs") %>

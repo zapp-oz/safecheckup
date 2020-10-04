@@ -70,18 +70,29 @@ const doctorSchema = new mongoose.Schema({
     ]
 })
 
+doctorSchema.set('toJSON', {virtuals: true})
+doctorSchema.set('toObject', {virtuals: true})
+
+doctorSchema.virtual('appointments', {
+    ref: 'Appointment',
+    localField: '_id',
+    foreignField: 'doctors.doctor'
+})
+
 doctorSchema.methods.toJSON = function(){
     const user = this.toObject()
 
     delete user.password
     delete user.authTokens
-    delete user.patients
+    // delete user.patients
 
     return user
 }
 
 doctorSchema.methods.generateWebTokens = async function(){
-    const token = jwt.sign({_id: this._id.toString()}, process.env.JWT_KEY)
+    const token = jwt.sign({_id: this._id.toString()}, process.env.JWT_KEY, {
+        expiresIn: 259200
+    })
     this.authTokens = [...this.authTokens, {token}]
     await this.save()
     return token

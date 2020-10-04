@@ -1,0 +1,43 @@
+.lg{
+    text-align: center;
+    background-color: #393e46;
+    box-shadow: 5px 5px 10px #00adb5;
+    padding: 10.0vh;
+    margin: 15.0vh auto;
+    width: 40%;
+    border: 1.5px solid #393e46;
+}
+
+.lg-text-heading{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 36px;
+    color: #00adb5;
+}
+
+.lg-text-normal{
+    font-family: 'Abel', cursive;
+    font-size: 18px;
+    color: #00adb5;
+}
+
+.lg-input-field{
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+    width: 60%;
+    border: 1.5px solid #00adb5;
+}
+
+.lg-sub-btn{
+    background-color: #eeeeee;
+    padding: 5px;
+    margin: 10px;
+    width: 60%;
+    border: 1.5px solid #00adb5;
+}
+
+.lg-signup-link:hover{
+    text-decoration: none;
+    color: #00adb5;
+}
+

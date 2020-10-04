@@ -1,0 +1,31 @@
+h3.welcome{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 26px;
+    padding: 10px;
+    border: 2px solid #222831;
+}
+
+section.role-select{
+    display: block;
+    position: relative;
+    top: 30.0vh;
+    left: 35%;
+    width: 30%;
+    text-align: center;
+}
+
+button.role-button{
+    width: 100%;
+    display: block;
+    border: 0;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Abel', cursive;
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px solid #222831;
+}
+
+a.role-links{
+    text-decoration: none;
+}

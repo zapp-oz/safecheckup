@@ -1,0 +1,25 @@
+.connect-container{
+    margin-top: 100px;
+}
+
+.connect-headings{
+    font-family: 'Bebas Neue', cursive;
+}
+
+.connect-data{
+    font-family: 'Abel', cursive;
+    font-size: 20px;
+}
+
+.connect-book-btn{
+    font-family: 'Abel', cursive;
+    font-size: 18px;
+    padding: 5px;
+}
+
+#connect-appointments{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}

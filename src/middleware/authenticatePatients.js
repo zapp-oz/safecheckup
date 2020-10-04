@@ -3,7 +3,7 @@ const Patient = require("../models/patient")
 
 const authenticate = async (req, res, next) => {
     try{
-        const token = req.header("Authorization").replace("Bearer ", "")
+        const token = req.cookies.auth.replace('Bearer ', '')
         const tokenData = jwt.verify(token, process.env.JWT_KEY) 
         const patient = await Patient.findOne({_id: tokenData._id, "authTokens.token": token})
 
@@ -16,7 +16,7 @@ const authenticate = async (req, res, next) => {
 
         next()
     }catch(e){
-        res.status(401).send()
+        res.status(401).render('./error')
     }
 }
 

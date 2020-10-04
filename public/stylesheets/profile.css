@@ -1,0 +1,33 @@
+.profile-container{
+    margin-top: 100px;
+}
+
+.profile-heading{
+    font-family: 'Bebas Neue', cursive;
+}
+
+.profile-entries{
+    font-family: 'Abel', cursive;
+    font-size: 20px;
+}
+
+.profile-button{
+    border: 2px solid #222831;
+    background-color: #393e46;
+    color: #00adb5;
+    font-family: 'Abel', cursive;
+    font-size: 18px;
+    padding: 5px;
+}
+
+#profile-appointments{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile-data{
+    font-family: 'Abel', cursive;
+    font-size: 20px;
+}

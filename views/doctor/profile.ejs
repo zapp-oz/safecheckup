@@ -1,0 +1,23 @@
+<%- include("../partials/header.ejs") %>
+
+<script src="/scripts/doctor-profile.js"></script>
+<div class="container profile-container">
+    <h2 class="profile-heading">Info</h2>
+    <hr>
+    <div class="container mb-5">
+        <p class="profile-entries"><strong>name: </strong><%=doctor.name%></p>
+        <p class="profile-entries"><strong>email: </strong><%=doctor.email%></p>
+        <p class="profile-entries"><strong>id: </strong><%=doctor.doctorId%></p>
+        <p class="profile-entries"><strong>speciality: </strong><%=doctor.speciality%></p>
+    </div>
+    <h2 class="profile-heading">Appointments</h2>
+    <button class="profile-button" id="profile-get-appointments">Show appointments</button>
+    <div id="profile-appointments"></div>
+    <hr>
+</div>
+
+<script>
+    let doctor = '<%-JSON.stringify(doctor)%>'
+</script>
+
+<%- include("../partials/footer.ejs") %>

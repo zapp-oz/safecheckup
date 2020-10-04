@@ -1,0 +1,20 @@
+<%- include("../partials/header.ejs") %>
+<script src="/scripts/doctor-connect.js"></script>
+
+<div class="connect-container container">
+    <h2 class="connect-headings">DOCTOR INFO</h2>
+    <div class="container">
+        <p class="connect-data"><strong>name: </strong><%=doctor.name%></p>
+        <p class="connect-data"><strong>speciality: </strong><%=doctor.speciality%></p>
+    </div>
+    <hr>
+    <h2 class="connect-headings">APPOINTMENTS</h2>
+    <button id="connect-appointments-btn" data-id="<%=doctor._id%>">Get Appoinments</button>
+    <div class="container" id="connect-appointments"></div>
+    <hr>
+    <h2 class="connect-headings">CHAT WITH THE DOCTOR</h2>
+    <button>Chat now!</button>
+    <hr>
+</div>
+
+<%- include("../partials/footer.ejs") %>

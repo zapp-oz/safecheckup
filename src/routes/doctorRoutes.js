@@ -2,32 +2,56 @@ const express = require("express")
 const Doctor = require("../models/doctor")
 const authenticate = require("../middleware/authenticateDoctors")
 const patientAuthenticate = require("../middleware/authenticatePatients")
+const isLoggedIn = require('../middleware/doctorIsLoggedIn')
 
 const Route = express.Router({mergeParams: true})
 
-Route.post("/signUp", async (req, res) => {
+Route.get('/signUp', isLoggedIn, async (req, res) => {
+    try{
+        res.status(200).render('./doctor/signUp', {type: 'doctor'})
+    } catch(e){
+        res.status(500).render('./error')
+    }
+})
+
+Route.post("/signUp", isLoggedIn, async (req, res) => {
     try{
         const doctor = new Doctor(req.body.doctor)
         await doctor.save()
         const token = await doctor.generateWebTokens()
 
-        res.setHeader("Authorization", "Bearer " + token)
-        res.status(201).send(doctor)
+        res.cookie('auth', 'Bearer '+ token, {
+            // secure: process.env.NODE_ENV === 'production'? true: false,
+            httpOnly: true,
+            maxAge: 2.5e+8
+        })
+        res.status(201).redirect('/doctor')
     } catch(e){
-        res.status(500).send(e)
+        res.status(500).render('./error')
     }
 })
 
-Route.post("/login", async (req, res) => {
+Route.get('/login', isLoggedIn, async (req, res) => {
+    try{
+        res.status(200).render('./doctor/login', {type: 'doctor'})
+    } catch(e){
+        res.status(500).render('./error')
+    }
+})
+
+Route.post("/login", isLoggedIn, async (req, res) => {
     try{
         const doctor = await Doctor.findByCredentials(req.body.doctor.email, req.body.doctor.password)
 
         const token = await doctor.generateWebTokens()
-        res.setHeader("Authorization", "Bearer " + token)
+        res.cookie('auth', 'Bearer ' + token, {
+            maxAge: 2.5e+8,
+            httpOnly: true
+        })
 
-        res.status(200).send(doctor)
+        res.status(200).redirect('/doctor')
     } catch(e){
-        res.status(401).send(e)
+        res.status(401).render('./error')
     }
 })
 
@@ -60,7 +84,7 @@ Route.get("/:id", patientAuthenticate, async (req, res) => {
         const doctor = await Doctor.findById(req.params.id)
 
         if(!doctor){
-            throw new Error("Doctor not found!")
+            return res.status(400).render('./error')
         }
 
         doctorCopy = doctor.toObject()
@@ -69,17 +93,34 @@ Route.get("/:id", patientAuthenticate, async (req, res) => {
         delete doctorCopy.authTokens
         delete doctorCopy.password
 
-        res.status(200).send(doctorCopy)
+        res.status(200).render('./doctor/connect', {doctor: doctorCopy})
     } catch(e){
-        res.status(400).send()
+        res.status(500).render('./error')
     }
 })
 
+// Route.get('/list', patientAuthenticate, async (req, res) => {
+//     try{
+//         res.render('./doctor/list')
+//     } catch(e){
+//         res.render()
+//     }
+// })
+
 Route.get("/", authenticate, async (req, res) => {
     try{
-        res.status(200).send(req.doctor)
+        let doctor = req.doctor.toObject()
+        doctor = await Doctor.findById(doctor._id).populate([
+            {
+                path: 'patients.patient',
+                model: 'Patient',
+                select: 'name'
+            }
+        ])
+
+        res.status(200).render('./doctor/profile', {doctor})
     } catch(e){
-        res.status(500).send()
+        res.status(500).render('./error')
     }
 })
 

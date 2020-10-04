@@ -1,0 +1,13 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container lg">
+    <h3 class="lg-text-heading">Login</h3>
+    <form action="/<%=type%>/login" method="POST">
+        <input type="email" placeholder="email" name="doctor[name]" class="lg-input-field" required autocomplete="off">
+        <input type="password" placeholder="password" name="doctor[password]" class="lg-input-field" required autocomplete="off">
+        <button class="lg-text-normal lg-sub-btn">Login</button>
+    </form>
+    <a href="/<%=type%>/signUp" class="lg-text-normal lg-signup-link">Not registered! Sign up now.</a>
+</div>
+
+<%- include("../partials/footer.ejs") %>
