@@ -15,7 +15,6 @@ Route.get('/signUp', patientIsLoggedIn, async (req, res) => {
 
 Route.post("/signUp", patientIsLoggedIn, async (req, res) => {
     try{
-        console.log(req.body.patient)
         const patient = new Patient(req.body.patient)
         await patient.save()
         const token = await patient.generateWebTokens()

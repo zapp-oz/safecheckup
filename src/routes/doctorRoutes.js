@@ -42,7 +42,6 @@ Route.get('/login', isLoggedIn, async (req, res) => {
 Route.post("/login", isLoggedIn, async (req, res) => {
     try{
         const doctor = await Doctor.findByCredentials(req.body.doctor.email, req.body.doctor.password)
-
         const token = await doctor.generateWebTokens()
         res.cookie('auth', 'Bearer ' + token, {
             maxAge: 2.5e+8,
@@ -93,7 +92,7 @@ Route.get("/:id", patientAuthenticate, async (req, res) => {
         delete doctorCopy.authTokens
         delete doctorCopy.password
 
-        res.status(200).render('./doctor/connect', {doctor: doctorCopy})
+        res.status(200).render('./doctor/connect', {doctor: doctorCopy, patient: req.patient})
     } catch(e){
         res.status(500).render('./error')
     }

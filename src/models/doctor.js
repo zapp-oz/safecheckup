@@ -100,13 +100,12 @@ doctorSchema.methods.generateWebTokens = async function(){
 
 doctorSchema.statics.findByCredentials = async (email, password) => {
     const doctor = await Doctor.findOne({email})
-
     if(!doctor){
         throw new Error("Invalid Credentials!")
     }
 
     const check = await bcrypt.compare(password, doctor.password)
-
+    
     if(!check){
         throw new Error("Invalid Credentials!")
     }

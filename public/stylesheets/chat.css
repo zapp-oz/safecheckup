@@ -1,0 +1,49 @@
+#chat-box{
+    position: relative;
+    width: 50.0vw;
+    height: 75.0vh;
+    margin: 0 auto;
+    top: 4.5vh;
+    border: 2px solid #222931;
+    background-color: #393e46;
+}
+
+#chat-header{
+    text-align: center;
+    font-family: 'Bebas Neue', cursive;
+    padding: 2.0vh;
+    height: 8.0vh;
+    color: #eeeeee;
+    background-color: #00adb5;
+    border-bottom: 2px solid #222931;
+}
+
+#message-box{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 7%;
+}
+
+#input-box{
+    display: inline-block;
+    width: 79%;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid #222931;
+    border-right: 2px solid #222931;
+    font-family: 'Abel', cursive;
+    font-style: italic;
+}
+
+#send-btn{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 19%;
+    border-top: 2px solid #222931;
+    border-left: 2px solid #222931;
+    font-family: 'Abel', cursive;
+}
