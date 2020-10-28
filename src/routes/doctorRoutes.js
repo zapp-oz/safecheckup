@@ -57,11 +57,11 @@ Route.post("/login", isLoggedIn, async (req, res) => {
 Route.get("/logout", authenticate, async (req, res) => {
     try{
         const authTokens = req.doctor.authTokens.filter(token => token.token !== req.token)
-        
+    
         req.doctor.authTokens = authTokens
-
+        
         await req.doctor.save()
-        res.status(200).send()
+        res.status(200).redirect('/')
     } catch(e){
         res.status(500).send()
     }

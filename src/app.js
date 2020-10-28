@@ -26,7 +26,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 
-const cronJob = new cron.CronJob('0 0 0 * * *', () => {
+const cronJob = new cron.CronJob('* 0 0 * * *', () => {
     appointmentScheduler()
     deleteAuthTokens()
 })

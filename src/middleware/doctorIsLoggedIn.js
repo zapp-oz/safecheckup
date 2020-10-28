@@ -5,7 +5,7 @@ const isLoggedIn = async (req, res, next) => {
     try{
         const token = req.cookies.auth.replace('Bearer ', '')
         const tokenData = jwt.verify(token, process.env.JWT_KEY)
-        const doctor = await Doctor.findById(tokenData._id)
+        const doctor = await Doctor.findOne({_id: tokenData._id, 'authTokens.token': token})
 
         if(!doctor){
             throw new Error()

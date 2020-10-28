@@ -3,6 +3,7 @@
 <script src="/scripts/doctor-profile.js"></script>
 <div class="container profile-container">
     <h2 class="profile-heading">Info</h2>
+    <a href="/doctor/logout"><button class="profile-button">logout</button></a>
     <hr>
     <div class="container mb-5">
         <p class="profile-entries"><strong>name: </strong><%=doctor.name%></p>
@@ -15,7 +16,7 @@
     <div id="profile-appointments"></div>
     <hr>
     <h2 class="profile-heading">CHAT</h2>
-    <a href="/chat?username=Dr. <%=doctor.name%>&room=<%=doctor._id%>"><button class="profile-button">Open Chat</button></a>
+    <a href="/chat?username=Dr. <%=doctor.name%>&room=<%=doctor._id%>" target="_blank" rel="noopener noreferrer"><button class="profile-button">Open Chat</button></a>
     <hr>
 </div>
 
